@@ -5,19 +5,14 @@ import java.io.*;
 public class AudioUtils {
     private static File tempDir;
 
-    /**
-     * 初始化
-     */
-    public static void init() throws IOException {
-        init(new File(System.getProperty("java.io.tmpdir")));
-    }
+  
 
-    public static void init(File tmpDir) throws IOException {
+    public static void init(File tmpDir, File libDir) throws IOException {
         AudioUtils.tempDir = tmpDir;
         if (!tempDir.canWrite()) {
             throw new IOException("缓存目录无写入权限，请重试");
         }
-        NativeLibLoader.load();
+        NativeLibLoader.load(libDir);
     }
 
     public static File mp3ToSilk(File mp3File, int bitRate) throws IOException {

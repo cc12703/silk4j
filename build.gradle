@@ -3,8 +3,8 @@ plugins {
     id("maven-publish")
 }
 
-group 'io.github.mzdluo123'
-version '1.2-dev'
+group 'io.github.cc12703'
+version '1.2'
 
 repositories {
     mavenCentral()
@@ -12,24 +12,35 @@ repositories {
 
 jar {
     from sourceSets.main.output
+
+    into('silk4j_libs/') {
+        from('pkg_resource/silk4j_libs/')
+    }
 }
 
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
 publishing {
-    repositories {
+
+     repositories {
         maven {
             name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/mzdluo123/silk4j")
+            url = uri("https://maven.pkg.github.com/cc12703/silk4j")
             credentials {
-                username = project.findProperty("gpr.user") ?: "mzdluo123"
+                username = project.findProperty("gpr.user") ?: "cc12703"
                 password = project.findProperty("gpr.key") ?: System.getenv("GITHUBTOKEN")
             }
         }
     }
+    
     publications {
         gpr(MavenPublication) {
             from(components["java"])
         }
     }
+
+    
 }
 
 dependencies {
