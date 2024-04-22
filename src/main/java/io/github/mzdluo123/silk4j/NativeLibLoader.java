@@ -51,6 +51,7 @@ public class NativeLibLoader {
         List<String> fileList = bufferedReader.lines().collect(Collectors.toList());
         int successCount = 0;
         String dirName = getOSName() + "-" + getOSArch();
+        System.out.println("dirName: " + dirName);
         for (String libFile : fileList) {
             if (!libFile.contains(dirName))
                 continue;
@@ -92,6 +93,8 @@ public class NativeLibLoader {
 
     private static String getOSName() {
         String val = System.getProperty("os.name").toLowerCase();
+        System.out.println("os.name: " + val);
+
         if (val.startsWith("windows")) {
             return "windows-shared";
         } else if (val.startsWith("mac")) {
@@ -105,14 +108,12 @@ public class NativeLibLoader {
 
     private static String getOSArch() {
         String val = System.getProperty("os.arch").toLowerCase();
-        if (val.contains("x86")) {
-            return "x86";
-        } else if (val.contains("x86_64")) {
-            return "x86_64";
+        System.out.println("os.arch: " + val);
+
+        if (val.contains("x86_64")) {
+            return "x64"; 
         } else if (val.contains("amd64")) {
-            return "x86_64";
-        } else if (val.contains("arm")) {
-            return "arm";
+            return "x64";
         } else if (val.contains("arm64")) {
             return "arm64";
         } else if (val.contains("aarch64")) {
